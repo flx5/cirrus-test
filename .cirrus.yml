@@ -1,0 +1,7 @@
+test_task:
+  container:
+    matrix:
+      - image: openjdk:8-jdk
+      - image: cirrusci/windowsservercore:2019
+      - image: big-sur-xcode-12.3
+  test_script: java -version
