@@ -11,4 +11,5 @@ task:
 task:
   windows_container:
     image: cirrusci/windowsservercore:2019
+  install_script: choco install -y openjdk8jre
   test_script: java -version
