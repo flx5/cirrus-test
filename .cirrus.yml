@@ -14,7 +14,6 @@ task:
   install_script: 
     - choco install -y openjdk8jre
     - set
-  env:
-    PATH: ${JAVA_HOME}\bin;${PATH}
+    - echo "%PATH%"
   printenv_script: set
   test_script: java -version
