@@ -1,7 +1,14 @@
 task:
-  matrix:
-    container:
-       - image: openjdk:8-jdk
+  container:
+     - image: openjdk:8-jdk
+  test_script: java -version
+
+task:
     macos_instance:
        - image: big-sur-xcode-12.3
+    test_script: java -version
+    
+task:
+  windows_container:
+    image: cirrusci/windowsservercore:2019
   test_script: java -version
