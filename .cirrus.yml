@@ -11,7 +11,9 @@ task:
 task:
   windows_container:
     image: cirrusci/windowsservercore:2019
-  install_script: choco install -y openjdk8jre
+  install_script: 
+    - choco install -y openjdk8jre
+    - set
   env:
     PATH: ${JAVA_HOME}\bin;${PATH}
   printenv_script: set
