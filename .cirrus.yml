@@ -12,7 +12,6 @@ task:
         
     test_script: ls $CIRRUS_WORKING_DIR
     setup_script:
-      - brew install cmake
       # Ffmpeg is only required for testing
       - brew install ffmpeg
       - git clone https://github.com/webcamoid/akvirtualcamera.git
@@ -24,7 +23,7 @@ task:
       - ./Manager/AkVCamManager add-device TestDevice
       - ./Manager/AkVCamManager add-format AkVCamVideoDevice0 RGB24 640 480 30
       - ./Manager/AkVCamManager update
-      - ffmpeg -f avfoundation -list_devices true -i ""
+      - ffmpeg -f avfoundation -list_devices true -i "" || true
       - brew install coreutils
       - timeout 5s ffmpeg -f avfoundation -i "0" --frames 1 capture.jpg
     image_artifacts:
