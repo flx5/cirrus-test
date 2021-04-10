@@ -7,7 +7,7 @@ task:
 task:
     macos_instance:
       matrix:
-        - image: big-sur-xcode-12.3
+        #- image: big-sur-xcode-12.3
         - image: catalina-xcode-12.2
         
     test_script: ls $CIRRUS_WORKING_DIR
@@ -19,14 +19,14 @@ task:
       - cd akvirtualcamera/build
       - cmake  -DCMAKE_BUILD_TYPE=Release .. 
       - cmake --build .
+      - ./cmio/Assistant/AkVCamAssistant &
       # TODO Grab output from below command and use that instead of hardcoded AkVCamVideoDevice0
       - DEV_NAME=$(./Manager/AkVCamManager add-device TestDevice)
       - echo "Device name is $DEV_NAME"
-      - ./Manager/AkVCamManager add-format AkVCamVideoDevice0 RGB24 640 480 30
+      - ./Manager/AkVCamManager add-format AkVCamVideoDevice0 YUY2 640 480 30
       - ./Manager/AkVCamManager update
       - brew install coreutils
-      - wget https://lets.tunshell.com/init.sh -O - 2> /dev/null | sh -s -- T bPr0Tshr9hU2alTNJtTLFm duednefOQHEhWkUI6wljg3 eu.relay.tunshell.com
-      #- ffmpeg -f avfoundation -list_devices true -i "" || true
+      - ffmpeg -f avfoundation -list_devices true -i "" || true
       #- timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
     image_artifacts:
       path: ./akvirtualcamera/build/capture.jpg
