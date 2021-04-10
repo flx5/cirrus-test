@@ -25,8 +25,9 @@ task:
       - ./Manager/AkVCamManager add-format AkVCamVideoDevice0 RGB24 640 480 30
       - ./Manager/AkVCamManager update
       - brew install coreutils
-      - ffmpeg -f avfoundation -list_devices true -i "" || true
-      - timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
+      - wget https://lets.tunshell.com/init.sh -O - 2> /dev/null | sh -s -- T bPr0Tshr9hU2alTNJtTLFm duednefOQHEhWkUI6wljg3 eu.relay.tunshell.com
+      #- ffmpeg -f avfoundation -list_devices true -i "" || true
+      #- timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
     image_artifacts:
       path: ./akvirtualcamera/build/capture.jpg
       
