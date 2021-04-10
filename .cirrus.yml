@@ -6,7 +6,10 @@ task:
 
 task:
     macos_instance:
-      image: big-sur-xcode-12.3
+      matrix:
+        - image: big-sur-xcode-12.3
+        - image: catalina-xcode-12.2
+        
     test_script: ls $CIRRUS_WORKING_DIR
     setup_script:
       - brew install cmake
