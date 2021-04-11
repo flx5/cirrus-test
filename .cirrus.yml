@@ -15,25 +15,29 @@ task:
     test_script: 
       - ls $CIRRUS_WORKING_DIR
       # Check that System Integrity Protection is enabled
+      - csrutil status
       #- csrutil status | grep enabled
       #- exit 1
     setup_script:
-      # Ffmpeg is only required for testing
-      - brew install ffmpeg
       - git clone https://github.com/webcamoid/akvirtualcamera.git
       - mkdir akvirtualcamera/build
       - cd akvirtualcamera/build
       - cmake  -DCMAKE_BUILD_TYPE=Release .. 
       - cmake --build .
-      - ./cmio/Assistant/AkVCamAssistant &
+    setup_camera_script:
+      # - ./cmio/Assistant/AkVCamAssistant &
       # TODO Grab output from below command and use that instead of hardcoded AkVCamVideoDevice0
-      - DEV_NAME=$(./Manager/AkVCamManager add-device TestDevice)
+      - DEV_NAME=$($CIRRUS_WORKING_DIR/akvirtualcamera/build/Manager/AkVCamManager add-device TestDevice)
       - echo "Device name is $DEV_NAME"
-      - ./Manager/AkVCamManager add-format AkVCamVideoDevice0 YUY2 640 480 30
-      - ./Manager/AkVCamManager update
+      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/Manager/AkVCamManager add-format AkVCamVideoDevice0 YUY2 640 480 30
+      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/Manager/AkVCamManager update
+    setup_ffmpeg_script:
+      # Ffmpeg is only required for testing
+      - brew install ffmpeg
       - brew install coreutils
+    grab_picture_script:
       - ffmpeg -f avfoundation -list_devices true -i "" || true
-      - timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
+      #- timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
     image_artifacts:
       path: ./akvirtualcamera/build/capture.jpg
       
