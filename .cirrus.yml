@@ -24,8 +24,9 @@ task:
       - cd akvirtualcamera/build
       - cmake  -DCMAKE_BUILD_TYPE=Release .. 
       - cmake --build .
+    start_akv_assistant_background_script:
+        - $CIRRUS_WORKING_DIR/akvirtualcamera/build/cmio/Assistant/AkVCamAssistant
     setup_camera_script:
-      # - ./cmio/Assistant/AkVCamAssistant &
       # TODO Grab output from below command and use that instead of hardcoded AkVCamVideoDevice0
       - DEV_NAME=$($CIRRUS_WORKING_DIR/akvirtualcamera/build/Manager/AkVCamManager -p add-device TestDevice)
       - echo "Device name is $DEV_NAME"
