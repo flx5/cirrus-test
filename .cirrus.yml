@@ -8,8 +8,9 @@ task:
     macos_instance:
       matrix:
         # System Integrity Protection is disabled on big-sur-xcode-12.5 https://github.com/cirruslabs/cirrus-ci-docs/issues/773
-        - image: big-sur-xcode-12.3
-        - image: catalina-xcode-12.2
+        - image: big-sur-base
+        #- image: big-sur-xcode-12.3
+        #- image: catalina-xcode-12.2
         
     test_script: 
       - ls $CIRRUS_WORKING_DIR
