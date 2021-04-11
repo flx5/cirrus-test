@@ -15,8 +15,8 @@ task:
     test_script: 
       - ls $CIRRUS_WORKING_DIR
       # Check that System Integrity Protection is enabled
-      - csrutil status | grep enabled
-      - exit 1
+      #- csrutil status | grep enabled
+      #- exit 1
     setup_script:
       # Ffmpeg is only required for testing
       - brew install ffmpeg
@@ -33,7 +33,7 @@ task:
       - ./Manager/AkVCamManager update
       - brew install coreutils
       - ffmpeg -f avfoundation -list_devices true -i "" || true
-      #- timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
+      - timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
     image_artifacts:
       path: ./akvirtualcamera/build/capture.jpg
       
