@@ -7,10 +7,13 @@ task:
 task:
     macos_instance:
       matrix:
-        #- image: big-sur-xcode-12.3
+        # - image: big-sur-xcode-12.3
         - image: catalina-xcode-12.2
         
-    test_script: ls $CIRRUS_WORKING_DIR
+    test_script: 
+      - ls $CIRRUS_WORKING_DIR
+      - csrutil status
+      - exit 1
     setup_script:
       # Ffmpeg is only required for testing
       - brew install ffmpeg
