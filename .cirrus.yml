@@ -7,12 +7,14 @@ task:
 task:
     macos_instance:
       matrix:
-        # - image: big-sur-xcode-12.3
+        # System Integrity Protection is disabled on big-sur-xcode-12.5 https://github.com/cirruslabs/cirrus-ci-docs/issues/773
+        - image: big-sur-xcode-12.3
         - image: catalina-xcode-12.2
         
     test_script: 
       - ls $CIRRUS_WORKING_DIR
-      - csrutil status
+      # Check that System Integrity Protection is enabled
+      - csrutil status | grep enabled
       - exit 1
     setup_script:
       # Ffmpeg is only required for testing
