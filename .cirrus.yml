@@ -20,9 +20,9 @@ task:
       #- exit 1
     setup_script:
       - git clone https://github.com/webcamoid/akvirtualcamera.git
-      - git checkout 8847a4cce6ebc4dc4f8213456c761043ad11a221
       - mkdir akvirtualcamera/build
       - cd akvirtualcamera/build
+      - git checkout 8847a4cce6ebc4dc4f8213456c761043ad11a221
       - cmake  -DCMAKE_BUILD_TYPE=Release .. 
       - cmake --build .
       - find $CIRRUS_WORKING_DIR/akvirtualcamera/build/
