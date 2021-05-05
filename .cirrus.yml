@@ -30,7 +30,7 @@ task:
         - $CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamAssistant
     setup_camera_script:
       # TODO Grab output from below command and use that instead of hardcoded AkVCamVideoDevice0
-      - DEV_NAME=$($CIRRUS_WORKING_DIR/akvirtualcamera/build/build/kVirtualCamera.plugin/Contents/Resources/AkVCamManager -p add-device TestDevice)
+      - DEV_NAME=$($CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager -p add-device TestDevice)
       - echo "Device name is $DEV_NAME"
       - $CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager add-format AkVCamVideoDevice0 YUY2 640 480 30
       - $CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager update
