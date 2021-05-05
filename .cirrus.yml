@@ -24,7 +24,7 @@ task:
       - cd akvirtualcamera/build
       - cmake  -DCMAKE_BUILD_TYPE=Release .. 
       - cmake --build .
-      - 
+      - find $CIRRUS_WORKING_DIR/akvirtualcamera/build/
     start_akv_assistant_background_script:
         - $CIRRUS_WORKING_DIR/akvirtualcamera/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamAssistant
     setup_camera_script:
