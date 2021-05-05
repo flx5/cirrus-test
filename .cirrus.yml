@@ -20,25 +20,26 @@ task:
       #- exit 1
     setup_script:
       - git clone https://github.com/webcamoid/akvirtualcamera.git
+      - git checkout 8847a4cce6ebc4dc4f8213456c761043ad11a221
       - mkdir akvirtualcamera/build
       - cd akvirtualcamera/build
       - cmake  -DCMAKE_BUILD_TYPE=Release .. 
       - cmake --build .
       - find $CIRRUS_WORKING_DIR/akvirtualcamera/build/
     start_akv_assistant_background_script:
-        - $CIRRUS_WORKING_DIR/akvirtualcamera/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamAssistant
+        - $CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamAssistant
     setup_camera_script:
       # TODO Grab output from below command and use that instead of hardcoded AkVCamVideoDevice0
-      - DEV_NAME=$($CIRRUS_WORKING_DIR/akvirtualcamera/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager -p add-device TestDevice)
+      - DEV_NAME=$($CIRRUS_WORKING_DIR/akvirtualcamera/build/build/kVirtualCamera.plugin/Contents/Resources/AkVCamManager -p add-device TestDevice)
       - echo "Device name is $DEV_NAME"
-      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager add-format AkVCamVideoDevice0 YUY2 640 480 30
-      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager update
+      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager add-format AkVCamVideoDevice0 YUY2 640 480 30
+      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager update
     setup_ffmpeg_script:
       # Ffmpeg is only required for testing
       - brew install ffmpeg
       - brew install coreutils
     grab_picture_script:
-      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager devices
+      - $CIRRUS_WORKING_DIR/akvirtualcamera/build/build/AkVirtualCamera.plugin/Contents/Resources/AkVCamManager devices
       - ffmpeg -f avfoundation -list_devices true -i "" || true
       - ffmpeg -f qtkit -list_devices true -i "" || true
       #- timeout 5s ffmpeg -f avfoundation -i "0" -frames 1 capture.jpg
